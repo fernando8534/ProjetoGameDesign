@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://n8tl11fdn5xc"]
+
+[ext_resource type="Script" uid="uid://dk4job203kmgt" path="res://Scripts/EnemyType.gd" id="1_odhx1"]
+[ext_resource type="Texture2D" uid="uid://cnp2icw5mva1c" path="res://Icons/Sprite-0003.png" id="2_350yt"]
+
+[resource]
+script = ExtResource("1_odhx1")
+title = "Slime3"
+texture = ExtResource("2_350yt")
+damage = 3.0
+metadata/_custom_type_script = "uid://dk4job203kmgt"

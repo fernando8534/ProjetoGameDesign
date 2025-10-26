@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://dep3d8uu7q6cn"]
+
+[ext_resource type="PackedScene" uid="uid://do6a2kr3jxb8m" path="res://Scenes/Enemy.tscn" id="2_5q6u0"]
+[ext_resource type="Script" uid="uid://dk4job203kmgt" path="res://Scripts/EnemyType.gd" id="2_lyyrg"]
+[ext_resource type="Resource" uid="uid://no8bqfn6q4rn" path="res://Resources/Slime1.tres" id="3_aubng"]
+[ext_resource type="Resource" uid="uid://caikcol1gocmi" path="res://Resources/Slime2.tres" id="4_c33js"]
+[ext_resource type="Resource" uid="uid://n8tl11fdn5xc" path="res://Resources/Slime3.tres" id="5_hcu3l"]
+[ext_resource type="Resource" uid="uid://1ryl106qbqwf" path="res://Resources/Slime4.tres" id="6_ajeec"]
+
+[sub_resource type="GDScript" id="GDScript_mimr8"]
+script/source = "extends Node2D
+ 
+@export var player : CharacterBody2D
+@export var enemy : PackedScene
+ 
+ 
+var distance : float = 400
+ 
+@export var enemy_types : Array[Enemy]
+
+var minute : int:
+	set(value):
+		minute = value
+		%Minute.text = str(value)
+ 
+var second : int:
+	set(value):
+		second = value
+		if second >= 10:
+			second -= 10
+			minute += 1
+		%Second.text = str(second).lpad(2,'0')
+ 
+
+func spawn(pos : Vector2):
+ 
+	var enemy_instance = enemy.instantiate()
+	#enemy_instance.position = get_random_position()
+	enemy_instance.type = enemy_types[min(minute, enemy_types.size() - 1)]
+	enemy_instance.position = pos
+	enemy_instance.player_reference = player
+	
+	get_tree().current_scene.add_child(enemy_instance)
+
+func get_random_position() -> Vector2:
+	return player.position + distance * Vector2.RIGHT.rotated(randf_range(0, 2 * PI))
+ 
+func amount(number : int = 1):
+	for i in range(number):
+		spawn(get_random_position())
+
+
+func _on_timer_3_timeout() -> void:
+	second += 1
+	amount(second % 10)
+
+
+func _on_pattern_timeout() -> void:
+	for i in range(75):
+		spawn(get_random_position())
+"
+
+[node name="Spawner" type="Node2D"]
+script = SubResource("GDScript_mimr8")
+enemy = ExtResource("2_5q6u0")
+enemy_types = Array[ExtResource("2_lyyrg")]([ExtResource("3_aubng"), ExtResource("4_c33js"), ExtResource("5_hcu3l"), ExtResource("6_ajeec")])
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_left = 1088.0
+offset_top = 16.0
+offset_right = 1134.0
+offset_bottom = 56.0
+
+[node name="Minute" type="Label" parent="CanvasLayer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0 "
+
+[node name="Label2" type="Label" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+text = ":"
+
+[node name="Second" type="Label" parent="CanvasLayer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00"
+
+[node name="Pattern" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Elite" type="Timer" parent="."]
+wait_time = 9.0
+autostart = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Pattern" to="." method="_on_pattern_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_3_timeout"]
