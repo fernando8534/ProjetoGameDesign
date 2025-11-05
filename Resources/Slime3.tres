@@ -7,5 +7,6 @@
 script = ExtResource("1_odhx1")
 title = "Slime3"
 texture = ExtResource("2_350yt")
+health = 10.0
 damage = 3.0
 metadata/_custom_type_script = "uid://dk4job203kmgt"

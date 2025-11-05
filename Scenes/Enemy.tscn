@@ -8,8 +8,8 @@ size = Vector2(20, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hac7"]
 
 [node name="Enemy" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 6
+collision_mask = 6
 script = ExtResource("1_m1htj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

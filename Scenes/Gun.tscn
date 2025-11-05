@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://iwps8ng0c15x"]
+
+[ext_resource type="Script" uid="uid://240thkqv42bq" path="res://Scripts/gun.gd" id="1_u7kx4"]
+[ext_resource type="Texture2D" uid="uid://b6ojktpe8atuj" path="res://Icons/4317a683cc3a540.png" id="2_cgpo0"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_u7kx4")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8.000011, 20.000004)
+scale = Vector2(0.2071875, 0.22151044)
+texture = ExtResource("2_cgpo0")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

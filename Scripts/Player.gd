@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed : float = 150
+var speed : float = 300
 var damage: float = 0
 var health : float = 100:
 	set(value):
