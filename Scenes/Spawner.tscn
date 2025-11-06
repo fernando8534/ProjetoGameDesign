@@ -14,7 +14,7 @@ script/source = "extends Node2D
 @export var enemy : PackedScene
  
  
-var distance : float = 400
+var distance : float = 700
  
 @export var enemy_types : Array[Enemy]
 
@@ -35,7 +35,7 @@ var second : int:
 func spawn(pos : Vector2):
  
 	var enemy_instance = enemy.instantiate()
-	#enemy_instance.position = get_random_position()
+	enemy_instance.position = get_random_position()
 	enemy_instance.type = enemy_types[min(minute, enemy_types.size() - 1)]
 	enemy_instance.position = pos
 	enemy_instance.player_reference = player

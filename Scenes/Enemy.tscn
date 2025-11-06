@@ -1,18 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://do6a2kr3jxb8m"]
+[gd_scene load_steps=5 format=3 uid="uid://do6a2kr3jxb8m"]
 
 [ext_resource type="Script" uid="uid://c3mthurjxo4ni" path="res://Scripts/Enemy.gd" id="1_m1htj"]
+[ext_resource type="PackedScene" uid="uid://djxmo2f3xml2e" path="res://Scenes/Particle.tscn" id="2_wovta"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s7bn3"]
 size = Vector2(20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hac7"]
+size = Vector2(41, 40)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 6
 collision_mask = 6
 script = ExtResource("1_m1htj")
+deathParticle = ExtResource("2_wovta")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.05, 1.9999998)
 texture = SubResource("PlaceholderTexture2D_s7bn3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

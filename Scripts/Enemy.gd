@@ -1,18 +1,16 @@
 extends CharacterBody2D
 
+@export var deathParticle : PackedScene
 @export var player_reference : CharacterBody2D
 var speed : float = 75
 var damage : float
-var health : float:
-	set(value):
-		health = value
-		if health <= 0:
-			queue_free()
+var health : float
 
 var type : Enemy:
 	set(value):
 		type = value
 		$Sprite2D.texture = value.texture
+		health = value.health
 		damage = value.damage
 		
 func _physics_process(delta: float) -> void:
@@ -20,5 +18,19 @@ func _physics_process(delta: float) -> void:
 	move_and_collide(velocity * delta)
 
 func take_damage(amount):
-	health -= amount
-	print(amount)
+	# Efeito de dano
+	var tween = get_tree().create_tween()
+	tween.tween_property($Sprite2D, "modulate", Color(3, 0.25, 0.25), 0.2)
+	tween.chain().tween_property($Sprite2D, "modulate", Color(1, 1, 1), 0.2)
+	tween.bind_node(self)
+	
+	health -= amount # O dano em si
+	if health <= 0:
+		# Particulas de morte do inimigo
+		var _particle = deathParticle.instantiate()
+		_particle.position = global_position
+		_particle.rotation = global_rotation
+		get_tree().current_scene.add_child(_particle)
+		
+		# Remove o inimigo quando morre
+		queue_free()

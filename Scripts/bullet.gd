@@ -1,7 +1,8 @@
 extends Area2D
 
-const SPEED: int = 300
-const DAMAGE: int = 10
+const SPEED: int = 500
+const DAMAGE: float = 4
+#var already_hit: bool = false ; usado caso queira ter penetração limitada
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,8 +14,14 @@ func _process(delta: float) -> void:
 	position += transform.x * SPEED * delta
 
 func _on_body_entered(body):
+	# Os comentados servem para penetração limitada
+	#if already_hit:
+	#	return
+	
+	if body.has_method("take_damage"):
 		body.take_damage(DAMAGE)
-		print(DAMAGE)
+	#already_hit = true
+	#queue_free()
 
 
 func _on_screen_exited():
