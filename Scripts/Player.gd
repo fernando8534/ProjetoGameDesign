@@ -55,7 +55,14 @@ func _on_dash_cooldown_timeout() -> void:
 
 func take_damage(amount: float) -> void:
 	health -= amount
+	
+	if health <= 0:
+		_on_player_health_depleted()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	take_damage(body.damage)
+
+func _on_player_health_depleted():
+	%GameOverScreen.visible = true
+	get_tree().paused = true
