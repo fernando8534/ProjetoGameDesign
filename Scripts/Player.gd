@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var dash_duration : float = 0.2
 @export var dash_cooldown : float = 1.0
 
+@onready var animated_sprite = $AnimatedSprite2D
+
 var is_dashing : bool = false
 var can_dash : bool = true
 var dash_timer : float = 0.0
@@ -23,8 +25,22 @@ func _physics_process(delta: float) -> void:
 	if not is_dashing:
 		var input_dir = Input.get_vector("left", "right", "up", "down")
 		velocity = input_dir * speed
+		
+		if input_dir.x < 0:
+			animated_sprite.flip_h = true
+		elif input_dir.x > 0:
+			animated_sprite.flip_h = false
+		
+		if input_dir != Vector2.ZERO:
+			if animated_sprite.animation != "default":
+				animated_sprite.play("default")
+				print(input_dir)
+		else:
+			if animated_sprite.animation != "idle":
+				animated_sprite.play("idle")
 	else:
 		# Durante o dash, move na direção do dash
+		animated_sprite.play("dash")
 		velocity = dash_direction * dash_speed
 		dash_timer -= delta
 		if dash_timer <= 0:
