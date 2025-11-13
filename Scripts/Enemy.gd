@@ -5,6 +5,7 @@ extends CharacterBody2D
 var speed : float = 75
 var damage : float
 var health : float
+const XP_GEM = preload("uid://dbe4inq0kgh0l")
 
 var type : Enemy:
 	set(value):
@@ -26,11 +27,17 @@ func take_damage(amount):
 	
 	health -= amount # O dano em si
 	if health <= 0:
-		# Particulas de morte do inimigo
-		var _particle = deathParticle.instantiate()
-		_particle.position = global_position
-		_particle.rotation = global_rotation
-		get_tree().current_scene.add_child(_particle)
-		
-		# Remove o inimigo quando morre
+		drop_xp()
+		death_particles()
 		queue_free()
+
+func death_particles():
+	var _particle = deathParticle.instantiate()
+	_particle.position = global_position
+	_particle.rotation = global_rotation
+	get_tree().current_scene.add_child(_particle)
+
+func drop_xp():
+	var xp_instance = XP_GEM.instantiate()
+	get_parent().add_child(xp_instance)
+	xp_instance.position = position

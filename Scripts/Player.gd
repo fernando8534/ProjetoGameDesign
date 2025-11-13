@@ -34,7 +34,6 @@ func _physics_process(delta: float) -> void:
 		if input_dir != Vector2.ZERO:
 			if animated_sprite.animation != "default":
 				animated_sprite.play("default")
-				print(input_dir)
 		else:
 			if animated_sprite.animation != "idle":
 				animated_sprite.play("idle")
@@ -70,7 +69,8 @@ func _on_dash_cooldown_timeout() -> void:
 
 
 func take_damage(amount: float) -> void:
-	health -= amount
+	if not is_dashing:
+		health -= amount
 	
 	if health <= 0:
 		_on_player_health_depleted()
