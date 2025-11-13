@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bedmnmrrt3wuf"]
+
+[ext_resource type="Script" uid="uid://bgey4j2wgu5g3" path="res://Scripts/game-manager.gd" id="1_m2tc1"]
+[ext_resource type="AudioStream" uid="uid://csi2k13dvu1j2" path="res://Assets/FX/lvup.mp3" id="2_bwyv8"]
+
+[node name="GameManager" type="Node" groups=["game_manager"]]
+script = ExtResource("1_m2tc1")
+
+[node name="LevelUpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_bwyv8")
