@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed : float = 300
 @export var dash_speed : float = 800
 @export var dash_duration : float = 0.2
-@export var dash_cooldown : float = 1.0
+@export var dash_cooldown : float = 2.0
 
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -15,9 +15,11 @@ var dash_direction : Vector2 = Vector2.ZERO
 @onready var health_bar = %Health
 @onready var collision = %Collision
 
-var health : float = 100:
+var max_health : float = 100
+
+var health : float = max_health:
 	set(value):
-		health = clamp(value, 0, 100)
+		health = clamp(value, 0, max_health)
 		health_bar.value = health
 
 func _physics_process(delta: float) -> void:
@@ -44,7 +46,8 @@ func _physics_process(delta: float) -> void:
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
-			# Inicia cooldown
+			# Atualiza o valor do cooldown, caso tenha mudado, e o inicia
+			$DashCooldown.wait_time = dash_cooldown
 			$DashCooldown.start()
 
 	move_and_slide()
@@ -52,7 +55,6 @@ func _physics_process(delta: float) -> void:
 	# Inicia o dash
 	if Input.is_action_just_pressed("dash") and can_dash and not is_dashing:
 		start_dash()
-
 
 func start_dash() -> void:
 	is_dashing = true
@@ -63,10 +65,8 @@ func start_dash() -> void:
 		dash_direction = velocity.normalized()
 	dash_timer = dash_duration
 
-
 func _on_dash_cooldown_timeout() -> void:
 	can_dash = true
-
 
 func take_damage(amount: float) -> void:
 	if not is_dashing:
@@ -75,10 +75,12 @@ func take_damage(amount: float) -> void:
 	if health <= 0:
 		_on_player_health_depleted()
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	take_damage(body.damage)
 
 func _on_player_health_depleted():
 	%GameOverScreen.visible = true
 	get_tree().paused = true
+
+func restore_max_health():
+	health = max_health

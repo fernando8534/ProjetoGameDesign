@@ -11,12 +11,9 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(_on_timer_timeout)
 
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
-
 
 func _on_timer_timeout() -> void:
 	var bullet_instance = BULLET.instantiate()

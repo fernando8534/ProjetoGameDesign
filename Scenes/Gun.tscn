@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://b6ojktpe8atuj" path="res://Icons/4317a683cc3a540.png" id="2_cgpo0"]
 
 [node name="Gun" type="Node2D"]
+visible = false
 script = ExtResource("1_u7kx4")
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(8.000011, 20.000004)
 scale = Vector2(0.2071875, 0.22151044)
 texture = ExtResource("2_cgpo0")

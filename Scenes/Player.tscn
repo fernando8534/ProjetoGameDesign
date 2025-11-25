@@ -112,7 +112,6 @@ autostart = true
 position = Vector2(2, -4)
 
 [node name="DashCooldown" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://jkpk3yec67d6"]
+[gd_scene load_steps=14 format=4 uid="uid://jkpk3yec67d6"]
 
 [ext_resource type="PackedScene" uid="uid://bedmnmrrt3wuf" path="res://Scenes/GameManager.tscn" id="1_qswnl"]
 [ext_resource type="PackedScene" uid="uid://dep3d8uu7q6cn" path="res://Scenes/Spawner.tscn" id="1_s3lxa"]
@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://b4iwwitm7qghl" path="res://Icons/Pixel Digivolve.otf" id="4_o8g73"]
 [ext_resource type="Texture2D" uid="uid://bi37ok1ijj7mi" path="res://Icons/tileMap.png" id="4_qswnl"]
 [ext_resource type="PackedScene" uid="uid://dbe4inq0kgh0l" path="res://Scenes/xp-gem.tscn" id="5_v3fvj"]
+[ext_resource type="Script" uid="uid://bbjq3ndjuufo3" path="res://Scripts/upgrade_manager.gd" id="7_khr67"]
+[ext_resource type="Script" uid="uid://defhvi0ws8n04" path="res://Scripts/upgrade_selection.gd" id="8_s7xl2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_khr67"]
 texture = ExtResource("4_qswnl")
@@ -336,5 +338,89 @@ anchor_bottom = 0.65400004
 offset_right = -806.72003
 offset_bottom = -400.79202
 text = "Level: 1"
+
+[node name="UpgradeManager" type="Node" parent="."]
+script = ExtResource("7_khr67")
+
+[node name="UpgradeSelection" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("8_s7xl2")
+
+[node name="Panel" type="Panel" parent="UpgradeSelection"]
+visible = false
+offset_right = 1154.0
+offset_bottom = 650.0
+
+[node name="Option1" type="Control" parent="UpgradeSelection/Panel"]
+process_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="UpgradeSelection/Panel/Option1"]
+process_mode = 3
+layout_mode = 0
+offset_left = 77.0
+offset_top = 450.0
+offset_right = 117.0
+offset_bottom = 473.0
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeSelection/Panel/Option1"]
+process_mode = 3
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="UpgradeSelection/Panel/Option1"]
+process_mode = 3
+layout_mode = 0
+offset_left = 77.0
+offset_top = 450.0
+offset_right = 359.0
+offset_bottom = 530.0
+theme_override_colors/icon_normal_color = Color(0.98879427, 0.8422023, 0.9045697, 1)
+
+[node name="Option2" type="Control" parent="UpgradeSelection/Panel"]
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="UpgradeSelection/Panel/Option2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeSelection/Panel/Option2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="UpgradeSelection/Panel/Option2"]
+process_mode = 3
+layout_mode = 0
+offset_left = 436.0
+offset_top = 450.0
+offset_right = 718.0
+offset_bottom = 530.0
+
+[node name="Option3" type="Control" parent="UpgradeSelection/Panel"]
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="UpgradeSelection/Panel/Option3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeSelection/Panel/Option3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="UpgradeSelection/Panel/Option3"]
+process_mode = 3
+layout_mode = 0
+offset_left = 795.0
+offset_top = 450.0
+offset_right = 1077.0
+offset_bottom = 530.0
 
 [connection signal="pressed" from="GameOverScreen/ColorRect/Button" to="GameOverScreen" method="_on_go_back_to_menu_pressed"]

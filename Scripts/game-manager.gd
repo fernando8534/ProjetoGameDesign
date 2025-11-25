@@ -5,6 +5,10 @@ var xp: float = 0
 var xp_to_next: float = 5  # XP required for level 1 → 2
 @onready var level_up_sound: AudioStreamPlayer2D = $LevelUpSound
 @onready var label: Label = $"../CanvasLayer/Label"
+@onready var upgrade_selection = $"../UpgradeSelection"
+@onready var player = $"../Player"
+
+#var player_health = player.get_node("Health")
 
 func add_xp(amount: float) -> void:
 	xp += amount
@@ -24,7 +28,9 @@ func _xp_required_for(lvl: int) -> float:
 	return base_xp * pow(growth_rate, lvl - 1)
 
 func _on_level_up() -> void:
+	# Ao upar de nível, apresenta os upgrades para escolha e restaura o hp do player
 	level_up_sound.play()
+	upgrade_selection.show_upgrades(player)
 
 func _update_ui() -> void:
 	if label:
