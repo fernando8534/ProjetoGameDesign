@@ -13,7 +13,7 @@ var type : Enemy:
 		$Sprite2D.texture = value.texture
 		health = value.health
 		damage = value.damage
-		
+
 func _physics_process(delta: float) -> void:
 	velocity = (player_reference.position - position).normalized() * speed
 	move_and_collide(velocity * delta)
@@ -24,12 +24,18 @@ func take_damage(amount):
 	tween.tween_property($Sprite2D, "modulate", Color(3, 0.25, 0.25), 0.2)
 	tween.chain().tween_property($Sprite2D, "modulate", Color(1, 1, 1), 0.2)
 	tween.bind_node(self)
-	
+
 	health -= amount # O dano em si
 	if health <= 0:
 		drop_xp()
 		death_particles()
+		notify_horde_manager()
 		queue_free()
+
+func notify_horde_manager():
+	var horde_manager = get_tree().get_first_node_in_group("horde_manager")
+	if horde_manager:
+		horde_manager.enemy_died()
 
 func death_particles():
 	var _particle = deathParticle.instantiate()
