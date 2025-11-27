@@ -7,6 +7,8 @@ signal all_waves_complete()
 
 
 var my_font = load("res://Icons/Pixel Digivolve.otf") 
+
+var timer
 @export var spawner: Node2D
 @export var player: CharacterBody2D
 @export var wave_label: Label
@@ -14,13 +16,13 @@ var my_font = load("res://Icons/Pixel Digivolve.otf")
 
 var waves = [
 	# Onda 1 - Onda tutorial
-	{"enemies": [{"type": 1, "count": 50}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 5}], "break_time": 0.0},
 
 	# Onda 2 - Inimigos mistos
-	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 20}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 10}, {"type": 2, "count": 5}], "break_time": 0.0},
 
 	# Onda 3 - Mais pressão
-	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 50}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 20}, {"type": 2, "count": 10}], "break_time": 0.0},
 
 	# Onda 4 - Inimigos mais fortes
 	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 50}, {"type": 3, "count": 20}], "break_time": 0.0},
@@ -50,6 +52,14 @@ var enemies_remaining = 0
 var is_break_time = false
 
 func _ready() -> void:
+	var wave_timer = Timer.new()
+	wave_timer.wait_time = 20.0
+	wave_timer.autostart = true
+	wave_timer.one_shot = false  # repete pra sempre
+	add_child(wave_timer)
+
+	wave_timer.timeout.connect(_on_wave_timer_timeout)
+
 	await get_tree().create_timer(3.0).timeout
 	start_wave()
 
@@ -101,9 +111,6 @@ func enemy_died():
 			waves.size(),
 		]
 
-	if enemies_remaining <= 0:
-		end_wave()
-
 func end_wave():
 	is_wave_active = false
 	emit_signal("wave_ended", current_wave + 1)
@@ -145,6 +152,10 @@ func get_total_waves() -> int:
 
 func is_in_break() -> bool:
 	return is_break_time
+
+func _on_wave_timer_timeout():
+	end_wave()
+
 
 func show_victory_screen():
 	# Show game over screen as victory screen

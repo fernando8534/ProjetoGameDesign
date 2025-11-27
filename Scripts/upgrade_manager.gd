@@ -2,7 +2,7 @@ extends Node
 
 func apply_health_upgrade(player):
 	player.max_health *= 1.2
-	player.get_node("Health").max_value *= 1.2
+	player.health *= 1.2
 	
 var all_upgrades := [
 	{

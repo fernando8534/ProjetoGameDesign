@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dep3d8uu7q6cn"]
+[gd_scene load_steps=9 format=3 uid="uid://dep3d8uu7q6cn"]
 
 [ext_resource type="PackedScene" uid="uid://do6a2kr3jxb8m" path="res://Scenes/Enemy.tscn" id="2_5q6u0"]
 [ext_resource type="Script" uid="uid://dk4job203kmgt" path="res://Scripts/EnemyType.gd" id="2_lyyrg"]
@@ -55,6 +55,9 @@ func amount(number : int = 1):
 func spawn_wave(type_index: int, count: int, speed_multiplier: float = 1.0):
 	var enemy_type_resource = enemy_types[type_index - 1] if type_index > 0 and type_index <= enemy_types.size() else enemy_types[0]
 
+	var total_time := 10.0  # tempo total do spawn
+	var interval := total_time / count
+
 	for i in range(count):
 		var spawn_pos = get_random_position()
 		var enemy_instance = spawn(spawn_pos, enemy_type_resource)
@@ -63,12 +66,12 @@ func spawn_wave(type_index: int, count: int, speed_multiplier: float = 1.0):
 			if speed_multiplier != 1.0:
 				enemy_instance.speed *= speed_multiplier
 
-			# Boss - 3x bigger
+			# Boss - 3x maior
 			if type_index == 5:
 				enemy_instance.scale = Vector2(3.0, 3.0)
 
-		if i % 5 == 0:
-			await get_tree().create_timer(0.1).timeout
+		# Espera proporcional para completar 10s no total
+		await get_tree().create_timer(interval).timeout
 
 func _on_timer_3_timeout() -> void:
 	second += 1

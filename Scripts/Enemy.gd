@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var deathParticle : PackedScene
 @export var player_reference : CharacterBody2D
-var speed : float = 75
+var speed : float
 var damage : float
 var health : float
 const XP_GEM = preload("uid://dbe4inq0kgh0l")
@@ -13,6 +13,7 @@ var type : Enemy:
 		$Sprite2D.texture = value.texture
 		health = value.health
 		damage = value.damage
+		speed = value.speed
 
 func _physics_process(delta: float) -> void:
 	velocity = (player_reference.position - position).normalized() * speed

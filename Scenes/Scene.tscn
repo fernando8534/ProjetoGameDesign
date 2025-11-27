@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://jkpk3yec67d6"]
+[gd_scene load_steps=15 format=4 uid="uid://jkpk3yec67d6"]
 
 [ext_resource type="PackedScene" uid="uid://bedmnmrrt3wuf" path="res://Scenes/GameManager.tscn" id="1_qswnl"]
 [ext_resource type="PackedScene" uid="uid://dep3d8uu7q6cn" path="res://Scenes/Spawner.tscn" id="1_s3lxa"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbe4inq0kgh0l" path="res://Scenes/xp-gem.tscn" id="5_v3fvj"]
 [ext_resource type="Script" uid="uid://bbjq3ndjuufo3" path="res://Scripts/upgrade_manager.gd" id="7_khr67"]
 [ext_resource type="Script" uid="uid://defhvi0ws8n04" path="res://Scripts/upgrade_selection.gd" id="8_s7xl2"]
-[ext_resource type="Script" path="res://Scripts/HordeManager.gd" id="9_horde"]
+[ext_resource type="Script" uid="uid://b2c56m20dfsty" path="res://Scripts/HordeManager.gd" id="9_horde"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_khr67"]
 texture = ExtResource("4_qswnl")
