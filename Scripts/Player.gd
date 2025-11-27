@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
+@export var pen : int = 2
 @export var speed : float = 300
+@export var damage : float = 1
+@export var hit_speed : float = 1
 @export var dash_speed : float = 800
 @export var dash_duration : float = 0.2
 @export var dash_cooldown : float = 2.0

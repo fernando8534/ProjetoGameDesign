@@ -5,6 +5,8 @@ signal wave_ended(wave_number: int)
 signal horde_incoming(seconds: int)
 signal all_waves_complete()
 
+
+var my_font = load("res://Icons/Pixel Digivolve.otf") 
 @export var spawner: Node2D
 @export var player: CharacterBody2D
 @export var wave_label: Label
@@ -12,34 +14,34 @@ signal all_waves_complete()
 
 var waves = [
 	# Onda 1 - Onda tutorial
-	{"enemies": [{"type": 1, "count": 15}], "break_time": 8.0, "name": "Primeiro Contato"},
+	{"enemies": [{"type": 1, "count": 50}], "break_time": 0.0},
 
 	# Onda 2 - Inimigos mistos
-	{"enemies": [{"type": 1, "count": 20}, {"type": 2, "count": 5}], "break_time": 8.0, "name": "Ameaça Crescente"},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 20}], "break_time": 0.0},
 
 	# Onda 3 - Mais pressão
-	{"enemies": [{"type": 1, "count": 15}, {"type": 2, "count": 10}], "break_time": 7.0, "name": "O Enxame"},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 50}], "break_time": 0.0},
 
 	# Onda 4 - Inimigos mais fortes
-	{"enemies": [{"type": 2, "count": 20}, {"type": 3, "count": 5}], "break_time": 7.0, "name": "Poder Crescente"},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 50}, {"type": 3, "count": 20}], "break_time": 0.0},
 
 	# Onda 5 - Desafio mid-game
-	{"enemies": [{"type": 2, "count": 15}, {"type": 3, "count": 12}], "break_time": 6.0, "name": "Assalto Implacável"},
+	{"enemies": [{"type": 2, "count": 15}, {"type": 3, "count": 12}], "break_time": 0.0},
 
 	# Onda 6 - Inimigos de alto nível
-	{"enemies": [{"type": 2, "count": 10}, {"type": 3, "count": 15}, {"type": 4, "count": 8}], "break_time": 6.0, "name": "Forças de Elite"},
+	{"enemies": [{"type": 2, "count": 10}, {"type": 3, "count": 15}, {"type": 4, "count": 8}], "break_time": 0.0},
 
 	# Onda 7 - Números massivos
-	{"enemies": [{"type": 3, "count": 25}, {"type": 4, "count": 10}], "break_time": 5.0, "name": "A Horda"},
+	{"enemies": [{"type": 3, "count": 25}, {"type": 4, "count": 10}], "break_time": 0.0},
 
 	# Onda 8 - Alta dificuldade
-	{"enemies": [{"type": 3, "count": 20}, {"type": 4, "count": 15}], "break_time": 5.0, "name": "Chances Esmagadoras"},
+	{"enemies": [{"type": 3, "count": 20}, {"type": 4, "count": 15}], "break_time": 0.0},
 
 	# Onda 9 - Quase o fim
-	{"enemies": [{"type": 3, "count": 15}, {"type": 4, "count": 25}], "break_time": 5.0, "name": "Resistência Final"},
+	{"enemies": [{"type": 3, "count": 15}, {"type": 4, "count": 25}], "break_time": 0.0},
 
 	# Onda 10 - Onda final com Boss e horda
-	{"enemies": [{"type": 4, "count": 40}, {"type": 5, "count": 1}], "break_time": 0.0, "name": "O BOSS"},
+	{"enemies": [{"type": 4, "count": 40}, {"type": 5, "count": 1}], "break_time": 0.0},
 ]
 
 var current_wave = 0
@@ -63,10 +65,12 @@ func start_wave():
 	var wave_data = waves[current_wave]
 
 	if wave_label:
-		wave_label.text = "Onda %d/%d - %s" % [current_wave + 1, waves.size(), wave_data["name"]]
+		wave_label.text = "Onda %d/%d" % [current_wave + 1, waves.size()]
 
 	if warning_label:
-		warning_label.text = "ONDA %d CHEGANDO!" % (current_wave + 1)
+		warning_label.add_theme_font_override("font", my_font)
+		warning_label.text = "ONDA %d" % (current_wave + 1)
+		warning_label.add_theme_color_override("font_color", Color(1.0, 0.937, 0.0, 1.0))
 		warning_label.visible = true
 		await get_tree().create_timer(2.0).timeout
 		warning_label.visible = false
@@ -92,11 +96,9 @@ func enemy_died():
 
 	if wave_label:
 		var wave_data = waves[current_wave]
-		wave_label.text = "Onda %d/%d - %s (%d restantes)" % [
+		wave_label.text = "Onda %d/%d" % [
 			current_wave + 1,
 			waves.size(),
-			wave_data["name"],
-			enemies_remaining
 		]
 
 	if enemies_remaining <= 0:
