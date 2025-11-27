@@ -38,8 +38,8 @@ var waves = [
 	# Onda 9 - Quase o fim
 	{"enemies": [{"type": 3, "count": 15}, {"type": 4, "count": 25}], "break_time": 5.0, "name": "Resistência Final"},
 
-	# Onda 10 - Onda final
-	{"enemies": [{"type": 4, "count": 50}], "break_time": 0.0, "name": "Apocalipse"},
+	# Onda 10 - Onda final com Boss e horda
+	{"enemies": [{"type": 4, "count": 40}, {"type": 5, "count": 1}], "break_time": 0.0, "name": "O BOSS"},
 ]
 
 var current_wave = 0
@@ -48,13 +48,11 @@ var enemies_remaining = 0
 var is_break_time = false
 
 func _ready() -> void:
-	# Start first wave after a short delay
 	await get_tree().create_timer(3.0).timeout
 	start_wave()
 
 func start_wave():
 	if current_wave >= waves.size():
-		# All waves completed!
 		emit_signal("all_waves_complete")
 		if wave_label:
 			wave_label.text = "VITÓRIA! Todas as Ondas Concluídas!"
@@ -92,7 +90,6 @@ func enemy_died():
 
 	enemies_remaining -= 1
 
-	# Update UI with remaining enemies
 	if wave_label:
 		var wave_data = waves[current_wave]
 		wave_label.text = "Onda %d/%d - %s (%d restantes)" % [
