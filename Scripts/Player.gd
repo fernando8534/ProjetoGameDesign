@@ -6,11 +6,14 @@ extends CharacterBody2D
 @export var dash_cooldown : float = 2.0
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var sword = $Sword
+@onready var gun = $Gun
 
 var is_dashing : bool = false
 var can_dash : bool = true
 var dash_timer : float = 0.0
 var dash_direction : Vector2 = Vector2.ZERO
+var is_attacking = false
 
 @onready var health_bar = %Health
 @onready var collision = %Collision
@@ -39,6 +42,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			if animated_sprite.animation != "idle":
 				animated_sprite.play("idle")
+				
+		if Input.is_action_just_pressed("attack") and not is_attacking:
+			perform_attack(animated_sprite.flip_h)
+			
 	else:
 		# Durante o dash, move na direção do dash
 		animated_sprite.play("dash")
@@ -84,3 +91,25 @@ func _on_player_health_depleted():
 
 func restore_max_health():
 	health = max_health
+
+func perform_attack(toLeft):
+	is_attacking = true
+	
+	#vira a hitbox pra esquerda se necessário
+	if toLeft:
+		sword.position.x = -65
+		sword.sprite.flip_h = true
+	else: 
+		sword.position.x = 50
+		sword.sprite.flip_h = false
+		
+	sword.sprite.visible = true
+	sword.monitoring = true
+	await get_tree().create_timer(0.1).timeout
+	sword.monitoring = false
+	sword.sprite.visible = false
+	
+	#entra no cooldown
+	sword.timer.start()
+	await sword.timer.timeout
+	is_attacking = false

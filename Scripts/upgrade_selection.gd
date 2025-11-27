@@ -15,7 +15,7 @@ func show_upgrades(player):
 		var upgrade = current_options[i]
 		
 		option.get_node("Button").text = "%s\n%s" % [ upgrade["name"], upgrade["description"] ]
-		#option.get_node("TextureRect").texture = upgrade["icon"]
+		option.get_node("TextureRect").texture = upgrade["icon"]
 		
 		# linka o botão com o função
 		option.get_node("Button").pressed.connect(Callable(self, "_on_button_pressed").bind(i))

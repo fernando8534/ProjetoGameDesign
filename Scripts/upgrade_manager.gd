@@ -6,29 +6,34 @@ func apply_health_upgrade(player):
 	
 var all_upgrades := [
 	{
-		"name": "Aumento de Vida",
+		"name": "Colete Resistente",
 		"description": "+20% de HP",
-		#"icon": preload("res://assets/upgrades/damage.png"),
+		"icon": preload("res://Icons/coleteupgrade.png"),
 		"apply": apply_health_upgrade
 	},
 
 	{
-		"name": "Dash Mais Rápido",
-		"description": "-25% cooldown do dash",
-		#"icon": preload("res://assets/upgrades/dash.png"),
-		"apply": func(player): player.dash_cooldown *= 0.75
+		"name": "Botas Novas",
+		"description": "+15% velocidade de movimento" ,
+		"icon": preload("res://Icons/botasupgrade.png"),
+		"apply": func(player): player.speed *= 1.15
+		
 	},
 
 	{
-		"name": "Velocidade de Movimento",
-		"description": "+15% velocidade de movimento",
-		#"icon": preload("res://assets/upgrades/speed.png"),
-		"apply": func(player): player.speed *= 1.15
+		"name": "Óleo Lubrificante",
+		"description": "-25% cooldown do dash",
+		"icon": preload("res://Icons/oilupgrade.png"),
+		"apply": func(player): player.dash_cooldown *= 0.75
+	},
+	
+	{
+		"name": "Luvas de Couro",
+		"description": "+25% no dano corpo a corpo",
+		"icon": preload("res://Icons/gloveupgrade.png"),
+		"apply": func(player): player.sword.damage *= 1.25
 	},
 ]
-
-#signal upgrades_selected(options)
-#signal upgrade_chosen(upgrade)
 
 func get_random_upgrades():
 	var pool = all_upgrades.duplicate()

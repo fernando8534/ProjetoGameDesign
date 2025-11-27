@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://vqb1gsqfh28s"]
 
 [ext_resource type="Texture2D" uid="uid://bwawvstlre7rp" path="res://Icons/background.png" id="1_6pedr"]
-[ext_resource type="Script" uid="uid://be3pnucs0jh1" path="res://Scenes/menu.gd" id="1_syfuq"]
+[ext_resource type="Script" uid="uid://be3pnucs0jh1" path="res://Scripts/menu.gd" id="1_syfuq"]
 [ext_resource type="FontFile" uid="uid://b4iwwitm7qghl" path="res://Icons/Pixel Digivolve.otf" id="2_syfuq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2c3o"]
