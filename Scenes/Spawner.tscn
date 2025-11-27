@@ -66,10 +66,6 @@ func spawn_wave(type_index: int, count: int, speed_multiplier: float = 1.0):
 			if speed_multiplier != 1.0:
 				enemy_instance.speed *= speed_multiplier
 
-			# Boss - 3x maior
-			if type_index == 5:
-				enemy_instance.scale = Vector2(3.0, 3.0)
-
 		# Espera proporcional para completar 10s no total
 		await get_tree().create_timer(interval).timeout
 

@@ -16,7 +16,7 @@ var timer
 
 var waves = [
 	# Onda 1 - Onda tutorial
-	{"enemies": [{"type": 1, "count": 5}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 5}, {"type": 5, "count": 1}], "break_time": 0.0},
 
 	# Onda 2 - Inimigos mistos
 	{"enemies": [{"type": 1, "count": 10}, {"type": 2, "count": 5}], "break_time": 0.0},

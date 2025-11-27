@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://c8boss1234567"]
 
 [ext_resource type="Script" uid="uid://dk4job203kmgt" path="res://Scripts/EnemyType.gd" id="1_boss"]
-[ext_resource type="Texture2D" uid="uid://booh1i1doqbj4" path="res://Icons/head.png" id="2_boss"]
+[ext_resource type="Texture2D" uid="uid://degkyyvkryxne" path="res://Icons/boss.png" id="2_gdmcd"]
 
 [resource]
 script = ExtResource("1_boss")
 title = "Boss"
-texture = ExtResource("2_boss")
-speed = 100.0
+texture = ExtResource("2_gdmcd")
+speed = 200.0
 health = 500.0
 damage = 25.0
 metadata/_custom_type_script = "uid://dk4job203kmgt"

@@ -2,7 +2,7 @@ extends Area2D
 
 @export var PEN: int = 2
 @export var SPEED: int = 500
-@export var DAMAGE: float = 4
+@export var DAMAGE: float = 5
 @export var already_hit: bool = false 
 
 func _ready() -> void:
