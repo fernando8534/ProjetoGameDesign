@@ -6,23 +6,23 @@
 [ext_resource type="Resource" uid="uid://caikcol1gocmi" path="res://Resources/Slime2.tres" id="4_c33js"]
 [ext_resource type="Resource" uid="uid://n8tl11fdn5xc" path="res://Resources/Slime3.tres" id="5_hcu3l"]
 [ext_resource type="Resource" uid="uid://1ryl106qbqwf" path="res://Resources/Slime4.tres" id="6_ajeec"]
+[ext_resource type="Resource" uid="uid://c8boss1234567" path="res://Resources/Boss.tres" id="7_boss"]
 
 [sub_resource type="GDScript" id="GDScript_mimr8"]
 script/source = "extends Node2D
- 
+
 @export var player : CharacterBody2D
 @export var enemy : PackedScene
- 
- 
+
 var distance : float = 700
- 
+
 @export var enemy_types : Array[Enemy]
 
 var minute : int:
 	set(value):
 		minute = value
 		%Minute.text = str(value)
- 
+
 var second : int:
 	set(value):
 		second = value
@@ -30,38 +30,57 @@ var second : int:
 			second -= 10
 			minute += 1
 		%Second.text = str(second).lpad(2,'0')
- 
 
-func spawn(pos : Vector2):
- 
+
+func spawn(pos : Vector2, enemy_type: Enemy = null):
 	var enemy_instance = enemy.instantiate()
-	enemy_instance.position = get_random_position()
-	enemy_instance.type = enemy_types[min(minute, enemy_types.size() - 1)]
 	enemy_instance.position = pos
 	enemy_instance.player_reference = player
-	
+
+	if enemy_type:
+		enemy_instance.type = enemy_type
+	else:
+		enemy_instance.type = enemy_types[min(minute, enemy_types.size() - 1)]
+
 	get_tree().current_scene.add_child(enemy_instance)
+	return enemy_instance
 
 func get_random_position() -> Vector2:
 	return player.position + distance * Vector2.RIGHT.rotated(randf_range(0, 2 * PI))
- 
+
 func amount(number : int = 1):
 	for i in range(number):
 		spawn(get_random_position())
 
+func spawn_wave(type_index: int, count: int, speed_multiplier: float = 1.0):
+	var enemy_type_resource = enemy_types[type_index - 1] if type_index > 0 and type_index <= enemy_types.size() else enemy_types[0]
+
+	for i in range(count):
+		var spawn_pos = get_random_position()
+		var enemy_instance = spawn(spawn_pos, enemy_type_resource)
+
+		if enemy_instance:
+			if speed_multiplier != 1.0:
+				enemy_instance.speed *= speed_multiplier
+
+			# Boss - 3x bigger
+			if type_index == 5:
+				enemy_instance.scale = Vector2(3.0, 3.0)
+
+		if i % 5 == 0:
+			await get_tree().create_timer(0.1).timeout
+
 func _on_timer_3_timeout() -> void:
 	second += 1
-	amount(second % 10)
 
 func _on_pattern_timeout() -> void:
-	for i in range(75):
-		spawn(get_random_position())
+	pass
 "
 
 [node name="Spawner" type="Node2D"]
 script = SubResource("GDScript_mimr8")
 enemy = ExtResource("2_5q6u0")
-enemy_types = Array[ExtResource("2_lyyrg")]([ExtResource("3_aubng"), ExtResource("4_c33js"), ExtResource("5_hcu3l"), ExtResource("6_ajeec")])
+enemy_types = Array[ExtResource("2_lyyrg")]([ExtResource("3_aubng"), ExtResource("4_c33js"), ExtResource("5_hcu3l"), ExtResource("6_ajeec"), ExtResource("7_boss")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

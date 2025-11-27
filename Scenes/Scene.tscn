@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbe4inq0kgh0l" path="res://Scenes/xp-gem.tscn" id="5_v3fvj"]
 [ext_resource type="Script" uid="uid://bbjq3ndjuufo3" path="res://Scripts/upgrade_manager.gd" id="7_khr67"]
 [ext_resource type="Script" uid="uid://defhvi0ws8n04" path="res://Scripts/upgrade_selection.gd" id="8_s7xl2"]
+[ext_resource type="Script" path="res://Scripts/HordeManager.gd" id="9_horde"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_khr67"]
 texture = ExtResource("4_qswnl")
@@ -255,6 +256,13 @@ func _on_go_back_to_menu_pressed() -> void:
 [node name="GameManager" parent="." instance=ExtResource("1_qswnl")]
 unique_name_in_owner = true
 
+[node name="HordeManager" type="Node" parent="." node_paths=PackedStringArray("spawner", "player", "wave_label", "warning_label") groups=["horde_manager"]]
+script = ExtResource("9_horde")
+spawner = NodePath("../Spawner")
+player = NodePath("../Player")
+wave_label = NodePath("../CanvasLayer/WaveLabel")
+warning_label = NodePath("../CanvasLayer/WarningLabel")
+
 [node name="Spawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_s3lxa")]
 player = NodePath("../Player")
 
@@ -299,15 +307,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.5
-offset_top = -11.5
-offset_right = 50.5
-offset_bottom = 11.5
+offset_left = -300.0
+offset_top = -60.0
+offset_right = 300.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_o8g73")
 theme_override_font_sizes/font_size = 90
 text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="GameOverScreen/ColorRect"]
 layout_mode = 1
@@ -338,6 +348,37 @@ anchor_bottom = 0.65400004
 offset_right = -806.72003
 offset_bottom = -400.79202
 text = "Level: 1"
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Onda 1/10"
+horizontal_alignment = 1
+
+[node name="WarningLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -50.0
+offset_right = 300.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "ONDA CHEGANDO!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="UpgradeManager" type="Node" parent="."]
 script = ExtResource("7_khr67")
