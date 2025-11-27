@@ -21,30 +21,30 @@ var all_upgrades := [
 
 	{
 		"name": "Velocidade de Movimento",
-		"description": "+15% velocidade de movimento",
+		"description": "+30% velocidade de movimento",
 		#"icon": preload("res://assets/upgrades/speed.png"),
-		"apply": func(player): player.speed *= 1.15
+		"apply": func(player): player.speed *= 1.30
 	},
 	
 	{
 		"name": "Mais Dano",
-		"description": "+25% a mais de dano",
+		"description": "+100% a mais de dano",
 		#"icon": preload("res://assets/upgrades/speed.png"),
-		"apply": func(player): player.damage *= 1.25
+		"apply": func(player): player.damage *= 2
 	},
 	
 	{
 		"name": "Frequência de ataque",
-		"description": "+20% mais frequência de ataque",
+		"description": "+50% mais frequência de ataque",
 		#"icon": preload("res://assets/upgrades/speed.png"),
-		"apply": func(player): player.hit_speed *= 0.8
+		"apply": func(player): player.hit_speed *= 0.5
 	},
 	
 	{
 		"name": "Penetração",
-		"description": "+2 de penetração",
+		"description": "+ 5de penetração",
 		#"icon": preload("res://assets/upgrades/speed.png"),
-		"apply": func(player): player.pen += 2
+		"apply": func(player): player.pen += 5
 	},
 ]
 

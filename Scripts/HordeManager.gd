@@ -28,22 +28,22 @@ var waves = [
 	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 50}, {"type": 3, "count": 20}], "break_time": 0.0},
 
 	# Onda 5 - Desafio mid-game
-	{"enemies": [{"type": 2, "count": 15}, {"type": 3, "count": 12}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 15}, {"type": 3, "count": 12}], "break_time": 0.0},
 
 	# Onda 6 - Inimigos de alto nível
-	{"enemies": [{"type": 2, "count": 10}, {"type": 3, "count": 15}, {"type": 4, "count": 8}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 2, "count": 10}, {"type": 3, "count": 15}, {"type": 4, "count": 8}], "break_time": 0.0},
 
 	# Onda 7 - Números massivos
-	{"enemies": [{"type": 3, "count": 25}, {"type": 4, "count": 10}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 3, "count": 25}, {"type": 4, "count": 10}], "break_time": 0.0},
 
 	# Onda 8 - Alta dificuldade
-	{"enemies": [{"type": 3, "count": 20}, {"type": 4, "count": 15}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 3, "count": 20}, {"type": 4, "count": 15}], "break_time": 0.0},
 
 	# Onda 9 - Quase o fim
-	{"enemies": [{"type": 3, "count": 15}, {"type": 4, "count": 25}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 3, "count": 30}, {"type": 4, "count": 25}], "break_time": 0.0},
 
 	# Onda 10 - Onda final com Boss e horda
-	{"enemies": [{"type": 4, "count": 40}, {"type": 5, "count": 1}], "break_time": 0.0},
+	{"enemies": [{"type": 1, "count": 50}, {"type": 3, "count": 30}, {"type": 4, "count": 40}, {"type": 5, "count": 1}], "break_time": 0.0},
 ]
 
 var current_wave = 0
